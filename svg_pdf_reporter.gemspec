@@ -9,14 +9,15 @@ Gem::Specification.new do |s|
   s.version     = SvgPdfReporter::VERSION
   s.authors     = ["Eiji MATSUMOTO"]
   s.email       = ["e.mattsan@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of SvgPdfReporter."
-  s.description = "TODO: Description of SvgPdfReporter."
+  s.homepage    = "https://github.com/mattsan/svg_pdf_reporter"
+  s.summary     = "PDF Report generator with SVG on Rails."
+  s.description = "PDF Report generator with SVG on Rails."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency "rails", "~> 4.2.6"
+  s.add_dependency "rsvg2"
 
   s.add_development_dependency "sqlite3"
 end
