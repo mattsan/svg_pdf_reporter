@@ -19,19 +19,19 @@ module SvgPdfReporter
 
     private
 
-  def render_pdf(source)
-    sink = StringIO.new
+    def render_pdf(source)
+      sink = StringIO.new
 
-    handle = RSVG::Handle.new_from_data(source)
-    dim = handle.dimensions
-    Cairo::PDFSurface.new(sink, dim.width, dim.height) do |surface|
-      cairo = Cairo::Context.new(surface)
-      cairo.render_rsvg_handle(handle)
+      handle = RSVG::Handle.new_from_data(source)
+      dim = handle.dimensions
+      Cairo::PDFSurface.new(sink, dim.width, dim.height) do |surface|
+        cairo = Cairo::Context.new(surface)
+        cairo.render_rsvg_handle(handle)
+      end
+      handle.close
+
+      sink.string
     end
-    handle.close
-
-    sink.string
-  end
 
     def _prefixes
       self.class.to_s.underscore.gsub(/_reporter/i, '')
