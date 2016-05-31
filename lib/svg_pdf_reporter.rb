@@ -21,6 +21,8 @@ module SvgPdfReporter
   end
 
   class Base < AbstractController::Base
+    abstract!
+
     include AbstractController::Rendering
     include ActionView::Layouts
 
