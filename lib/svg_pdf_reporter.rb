@@ -2,19 +2,59 @@ require 'stringio'
 require 'rsvg2'
 
 module SvgPdfReporter
+  class Report
+    def initialize(reporter_class, action)
+      @reporter_class, @action = reporter_class, action
+    end
+
+    def as_pdf
+      @reporter_class.as_pdf(@action)
+    end
+
+    def as_svg
+      @reporter_class.as_svg(@action)
+    end
+
+    def save_pdf_to_file(filename)
+      File.new(filename, 'wb').write(as_pdf)
+    end
+  end
+
   class Base < AbstractController::Base
     include AbstractController::Rendering
     include ActionView::Layouts
 
     prepend_view_path('app/views')
 
-    def report(action)
-      source = generate_svg(action)
+    class << self
+      private :new
+
+      def as_pdf(action)
+        new.as_pdf(action)
+      end
+
+      def as_svg(action)
+        new.as_svg(action)
+      end
+    end
+
+    def as_pdf(action)
+      source = as_svg(action)
       render_pdf(source)
     end
 
-    def generate_svg(action)
+    def as_svg(action)
       render_to_string layout: 'reporter', action: action, formats: :svg
+    end
+
+    protected
+
+    def self.method_missing(method_name)
+      if action_methods.include?(method_name.to_s)
+        Report.new(self, method_name)
+      else
+        super
+      end
     end
 
     private
