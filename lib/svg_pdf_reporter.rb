@@ -25,9 +25,9 @@ module SvgPdfReporter
       handle = RSVG::Handle.new_from_data(source)
       dim = handle.dimensions
       Cairo::PDFSurface.new(sink, dim.width, dim.height) do |surface|
-        cairo = Cairo::Context.new(surface)
-        cairo.render_rsvg_handle(handle)
-        cairo.show_page
+        context = Cairo::Context.new(surface)
+        context.render_rsvg_handle(handle)
+        context.show_page
       end
       handle.close
 
