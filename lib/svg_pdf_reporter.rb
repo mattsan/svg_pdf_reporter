@@ -33,9 +33,5 @@ module SvgPdfReporter
 
       sink.string
     end
-
-    def _prefixes
-      self.class.to_s.underscore.gsub(/_reporter/i, '')
-    end
   end
 end
