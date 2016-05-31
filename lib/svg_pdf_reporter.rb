@@ -41,11 +41,13 @@ module SvgPdfReporter
     end
 
     def as_pdf(action)
+      send(action)
       source = as_svg(action)
       render_pdf(source)
     end
 
     def as_svg(action)
+      send(action)
       render_to_string layout: 'reporter', action: action, formats: :svg
     end
 
