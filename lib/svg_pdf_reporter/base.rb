@@ -13,6 +13,14 @@ module SvgPdfReporter
     class << self
       private :new
 
+      def dpi=(val)
+        @@dpi = val
+      end
+
+      def dpi
+        @@dpi ||= 72
+      end
+
       def as_pdf(action)
         new.as_pdf(action)
       end
@@ -49,6 +57,7 @@ module SvgPdfReporter
       sink = StringIO.new
 
       handle = RSVG::Handle.new_from_data(source)
+      handle.dpi = Base.dpi
       dim = handle.dimensions
       Cairo::PDFSurface.new(sink, dim.width, dim.height) do |surface|
         context = Cairo::Context.new(surface)
