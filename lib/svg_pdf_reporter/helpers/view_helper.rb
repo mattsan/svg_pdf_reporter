@@ -69,7 +69,7 @@ module SvgPdfReporter
         letters = text.chars
         margin = -> (i) { (i * 2 + 1) * options[:width] / letters.size / 2 }
         letters.map.with_index {|letter, i|
-          content_tag(:tspan, x: options[:x] + margin[i], y: options[:y], 'text-anchor' => 'middle') { letter }
+          content_tag(:tspan, letter, x: options[:x] + margin[i], y: options[:y], 'text-anchor' => 'middle')
         }.join.html_safe
       end
     end
