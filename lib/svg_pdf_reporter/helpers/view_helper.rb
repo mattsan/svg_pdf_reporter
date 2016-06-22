@@ -65,6 +65,22 @@ module SvgPdfReporter
         content_tag(:rect, nil, options)
       end
 
+      def hline(options)
+        x1 = options[:x]
+        y1 = options[:y]
+        x2 = x1 + options[:width]
+        y2 = y1
+        line(options.reject {|k| %i(x y width).include? k }.merge(x1: x1, y1: y1, x2: x2, y2: y2))
+      end
+
+      def vline(options)
+        x1 = options[:x]
+        y1 = options[:y]
+        x2 = x1
+        y2 = y1 + options[:height]
+        line(options.reject {|k| %i(x y width).include? k }.merge(x1: x1, y1: y1, x2: x2, y2: y2))
+      end
+
       def adjusted_text(text, options)
         letters = text.chars
         margin = -> (i) { (i * 2 + 1) * options[:width] / letters.size / 2 }
