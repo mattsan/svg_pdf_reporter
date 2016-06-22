@@ -13,7 +13,9 @@ module SvgPdfReporter
     end
 
     def save_pdf_to_file(filename)
-      File.new(filename, 'wb').write(as_pdf)
+      File.open(filename, 'wb') do |file|
+        file.write(as_pdf)
+      end
     end
   end
 end
